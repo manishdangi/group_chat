@@ -5,7 +5,6 @@ room.room_creation = function(io)
 {
 	io.on('connection',function(socket)
 	{
-		console.log("a user has been connected");
 		socket.on('room_creation',function(value)
 		{		
 			msg = JSON.parse(value);

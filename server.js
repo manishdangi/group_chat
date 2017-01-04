@@ -26,7 +26,6 @@ app.get('/',function(req,res){
 	
 })
 app.get('/chat',function(req,res){
-	// console.log(req.body);
 	res.sendFile(path.join(__dirname,'public','views','chat.html'),function(){
 		res.end();	
 	});
