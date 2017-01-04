@@ -1,0 +1,40 @@
+.flex-box
+{
+	display:-webkit-flex;
+	display: flex;
+}
+
+.float-left
+{
+	float:left;
+}
+.float-right
+{
+	float:right;
+}
+
+.width--25
+{
+	width:25%;
+}
+
+.width--30
+{
+	width:30%;
+}
+
+.height--80
+{
+	height:80%;
+}
+
+.flex-dir-column
+{
+	flex-direction:column;
+	-webkit-flex-direction:column;
+}
+
+.inline-block
+{
+	display:inline-block;
+}
