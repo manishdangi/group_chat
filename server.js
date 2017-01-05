@@ -12,7 +12,6 @@ server.listen(3000,function(){
 var io = require('socket.io').listen(server);
 
 var rooms = require('./private/room');
-var chats = require('./private/chat')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
@@ -21,7 +20,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.get('/',function(req,res){
 	res.sendFile(path.join(__dirname,'public','views','room.html'),function(){
-		res.end();	
+		res.end();
 	});
 	
 })
@@ -33,4 +32,3 @@ app.get('/chat',function(req,res){
 })
 
 rooms.room_creation(io);
-chats.room_join(io);
