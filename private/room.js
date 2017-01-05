@@ -1,6 +1,6 @@
 var room = {};
+var chats = require('./chat.js')
 room.rooms_names = [];
-
 room.room_creation = function(io)
 {
 	io.on('connection',function(socket)
@@ -25,8 +25,10 @@ room.room_creation = function(io)
 				}
 				else	
 				{
+					room.admin_id = socket.id;
 					room.rooms_names.push(msg.room_no);
-					socket.emit('room_creation_success',JSON.stringify({value:true}));
+					socket.emit('room_creation_success',JSON.stringify({value:true,room:msg.room_no}));
+					chats.room_join(io,room.admin_id);
 				}
 			}
 		});
