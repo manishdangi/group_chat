@@ -1,10 +1,18 @@
 var socket = io('/chat');
-
 var chat = {};
-chat.room_no = location.search.split('?')[1].slice(5);
 
+chat.room_no = location.search.split('?')[1].slice(5);
 chat.username = prompt('Enter your username');
-socket.emit('room_join',JSON.stringify({room_no:chat.room_no,user:chat.username}));	
+
+socket.emit('is_room_join_permission',JSON.stringify({user:chat.username}));
+
+socket.on('is_chat_allow_emit_admin',function(value){
+	msg = JSON.parse(value);
+	var chat_permission = confirm(msg.user+" wants to join the room");
+	socket.emit('is_chat_allow_result',JSON.stringify({
+		permission:chat_permission,room:chat.room_no,user:msg.user
+	}))
+})
 
 socket.on('room_join_success',function(value){
 	msg = JSON.parse(value);
