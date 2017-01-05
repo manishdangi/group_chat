@@ -13,6 +13,7 @@ socket.on('room_creation_success',function(msg){
 	if(msg.value)
 	{
 		alert("your room has been successfully created");
+		window.location.href = "/chat?room="+msg.room;
 	}
 	else
 	{
