@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "manish kumar dangi",
+  "author": {
+    "name":"manish kumar dangi",
+    "email":"m.k.dangi99@gmail.com"
+  },
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
