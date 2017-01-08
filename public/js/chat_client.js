@@ -22,6 +22,11 @@ socket.on('room_join_success',function(value){
 	}
 });
 
+socket.on('is_chat_allow_result_emit_admin',function(value){
+	msg = JSON.parse(value);
+	alert("admin has allowed to join the room");
+})
+
 $("#send_message").click(function(){
 	if($("#messages").val()!=null)
 	{
