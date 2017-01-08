@@ -1,22 +1,24 @@
 var chat = {};
-chat.room_join = function(io ,admin_id)
+chat.room_join = function(io, admin_id)
 {
 	var connect = io.of('/chat');
-	console.log(admin_id);
 	connect.on('connection',function(socket){
+		socket.join(admin_id);
 		socket.on('is_room_join_permission',function(value){
+			chat.remove = socket.id;
 			msg = JSON.parse(value);
-			socket.join(admin_id);
-			socket.to(admin_id).broadcast.emit('is_chat_allow_emit_admin',JSON.stringify({
+			socket.to(admin_id).emit('is_chat_allow_emit_admin',JSON.stringify({
 				user:msg.user
-			}))
+			}))						
 		})
 		socket.on('is_chat_allow_result',function(value){
 			msg  = JSON.parse(value);
-			socket.leave(admin_id);
-			console.log(admin_id + " has left the room");
 			if(msg.permission)
 			{
+				socket.to(admin_id).emit("is_chat_allow_result_emit_admin",JSON.stringify({
+					result:true
+				}));
+				delete io.nsps['/chat'].adapter.rooms[admin_id].sockets[chat.remove];
 				socket.join(msg.room);
 				connect.to(msg.room).emit('room_join_success',JSON.stringify({
 					value:true,user:msg.user
