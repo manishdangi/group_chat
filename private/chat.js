@@ -4,7 +4,7 @@ chat.room_join = function(io, admin_id)
 	var connect = io.of('/chat');
 	connect.on('connection',function(socket){
 		socket.join(admin_id);
-		socket.on('is_room_join_permission',function(value){
+		socket.on('room_join_permission',function(value){
 			chat.remove = socket.id;
 			msg = JSON.parse(value);
 			socket.to(admin_id).emit('is_chat_allow_emit_admin',JSON.stringify({
@@ -26,7 +26,9 @@ chat.room_join = function(io, admin_id)
 			}
 			else
 			{
-
+				socket.to(admin_id).emit("is_chat_allow_result_emit_admin",JSON.stringify({
+					result:false
+				}));
 				socket.disconnect();
 			}
 		});
