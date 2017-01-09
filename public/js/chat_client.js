@@ -4,7 +4,7 @@ var chat = {};
 chat.room_no = location.search.split('?')[1].slice(5);
 chat.username = prompt('Enter your username');
 
-socket.emit('is_room_join_permission',JSON.stringify({user:chat.username}));
+socket.emit('room_join_permission',JSON.stringify({user:chat.username}));
 
 socket.on('is_chat_allow_emit_admin',function(value){
 	msg = JSON.parse(value);
@@ -24,7 +24,16 @@ socket.on('room_join_success',function(value){
 
 socket.on('is_chat_allow_result_emit_admin',function(value){
 	msg = JSON.parse(value);
-	alert("admin has allowed to join the room");
+	if(msg.result)
+	{
+		webrtc.joinRoom(chat.room_no);
+		alert("admin has allowed to join the room");
+	}
+	else
+	{
+		window.location = "/";
+		alert("admin has not allowed to join the room")
+	}
 })
 
 $("#send_message").click(function(){
