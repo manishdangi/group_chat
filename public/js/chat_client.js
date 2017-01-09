@@ -6,7 +6,11 @@ chat.username = prompt('Enter your username');
 
 socket.emit('room_join_permission',JSON.stringify({user:chat.username}));
 
-socket.on('is_chat_allow_emit_admin',function(value){
+socket.on("admin_room_join",function(value){
+	webrtc.joinRoom(chat.room_no);
+})
+
+socket.on('is_chat_allow_admin',function(value){
 	msg = JSON.parse(value);
 	var chat_permission = confirm(msg.user+" wants to join the room");
 	socket.emit('is_chat_allow_result',JSON.stringify({
@@ -22,12 +26,12 @@ socket.on('room_join_success',function(value){
 	}
 });
 
-socket.on('is_chat_allow_result_emit_admin',function(value){
+socket.on('chat_allow_result_to_admin',function(value){
 	msg = JSON.parse(value);
 	if(msg.result)
 	{
-		webrtc.joinRoom(chat.room_no);
 		alert("admin has allowed to join the room");
+		webrtc.joinRoom(chat.room_no);
 	}
 	else
 	{
